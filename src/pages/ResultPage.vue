@@ -1,5 +1,6 @@
-<script setup >
+<script setup>
 import BaseLayout from "../layouts/BaseLayout.vue";
+
 
 const { isActive, resetApp, getRandomName } = defineProps([
   "isActive",

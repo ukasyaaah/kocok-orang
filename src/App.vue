@@ -1,7 +1,8 @@
 <script setup>
-import { computed, isReactive, reactive } from "vue";
+import { computed, reactive } from "vue";
 import BaseLayout from "./layouts/BaseLayout.vue";
 import ResultPage from "./pages/ResultPage.vue";
+import AboutDev from "./components/AboutDev.vue";
 
 const kocok = reactive({
   inputName: "",
@@ -116,4 +117,6 @@ function resetApp() {
     :reset-app="resetApp"
     :get-random-name="getRandomName"
   />
+
+  <AboutDev />
 </template>
