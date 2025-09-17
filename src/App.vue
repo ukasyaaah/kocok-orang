@@ -6,9 +6,14 @@ const kocok = reactive({
   inputName: "",
   names: [],
   error: "",
+  state: true,
 });
 
 const isReady = computed(() => (kocok.names.length > 1 ? true : false));
+
+function notState() {
+  kocok.state = !kocok.state;
+}
 
 function addNameToList() {
   const name = kocok.inputName;
@@ -40,30 +45,39 @@ function validate(value) {
 </script>
 
 <template>
-  <BaseLayout>
+  <BaseLayout :vif="kocok.state">
     <div class="md:flex mx-5 md:gap-20 items-center lg:gap-40">
       <div
-        class="flex flex-col shadow-2xl shadow-tahiti items-center max-w-sm md:max-w-md mx-auto p-15 rounded-2xl h-fit bg-tahiti text-teks"
+        class="flex flex-col justify-around h-90 shadow-2xl shadow-tahiti items-center max-w-sm md:max-w-md mx-auto p-15 rounded-2xl bg-tahiti text-teks"
       >
         <h1 class="font-bold text-3xl">Kocok Orang</h1>
-        <form class="my-10  flex gap-x-4 justify-center">
+        <form class="flex gap-x-4 justify-center">
           <input
-            class="border  focus:outline-teks rounded-lg"
+            class="border focus:outline-teks rounded-lg"
             type="text"
             v-model="kocok.inputName"
           />
           <button
-            class="hover:cursor-pointer button "
+            class="hover:cursor-pointer button"
             @click.enter.prevent="addNameToList"
           >
             Tambah
           </button>
         </form>
-        <h3 v-if="kocok.error">
+        <h3
+          class="animate__animated animate__wobble font-bold text-lg"
+          v-if="kocok.error"
+        >
           {{ kocok.error }}
         </h3>
 
-        <button class="button" v-if="isReady">Kocok Sekarang!</button>
+        <button
+          class="button animate__animated animate__fadeInDown"
+          @click.prevent="notState"
+          v-if="isReady"
+        >
+          Kocok Sekarang!
+        </button>
       </div>
 
       <div
@@ -74,7 +88,7 @@ function validate(value) {
           v-for="(nameh, index) in kocok.names"
           @click.prevent="deleteName(index)"
           :key="index"
-          class="button md:m-3"
+          class="button md:m-3 animate__animated animate__bounceInUp"
         >
           <p>
             {{ nameh }}
@@ -83,4 +97,6 @@ function validate(value) {
       </div>
     </div>
   </BaseLayout>
+
+  <BaseLayout :vif="!kocok.state"> miaw</BaseLayout>
 </template>
